@@ -95,3 +95,26 @@ export const testimonials = [
     highlight: "Professional & Affordable"
   }
 ];
+
+export const faqs = [
+  {
+    question: "Do root canal treatments hurt?",
+    answer: "No! We use the latest techniques and local anesthesia to ensure your root canal treatment is as comfortable and painless as possible. Many patients report it feels similar to getting a routine filling."
+  },
+  {
+    question: "How often should I visit the dentist?",
+    answer: "We recommend a routine check-up and professional teeth cleaning every 6 months. Frequent visits help prevent gum disease, cavities, and ensure your overall oral hygiene remains in top shape."
+  },
+  {
+    question: "Do you treat children (pediatric dentistry)?",
+    answer: "Yes, we offer comprehensive family dentistry. We strive to create a warm, welcoming environment so kids feel completely at ease during their treatments."
+  },
+  {
+    question: "Do I need to book an appointment in advance?",
+    answer: "While we do accept walk-in patients depending on availability, we highly recommend booking an appointment in advance to avoid wait times."
+  },
+  {
+    question: "What should I do in a dental emergency?",
+    answer: "In case of a severe toothache, broken tooth, or any dental emergency, please call us immediately at our clinic number. We prioritize emergency cases to provide quick relief."
+  }
+];

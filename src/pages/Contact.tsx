@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { clinicDetails } from '../data';
 import { MapPin, Phone, Clock, Mail, CheckCircle2 } from 'lucide-react';
 import SectionHeading from '../components/ui/SectionHeading';
 import * as motion from 'motion/react-client';
 import { useAppointments } from '../hooks/useAppointments';
+import { useToast } from '../contexts/ToastContext';
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
   const { addAppointment } = useAppointments();
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,8 +22,8 @@ export default function Contact() {
       notes: formData.get('notes') as string,
     });
 
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    toast('Message sent successfully!');
+    e.currentTarget.reset();
   };
 
   return (
@@ -100,27 +101,6 @@ export default function Contact() {
               <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-50">
                 <h3 className="text-2xl font-heading font-bold text-gray-900 mb-6">Send us a message</h3>
                 
-                {submitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center justify-center text-center py-16"
-                  >
-                    <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-                      <CheckCircle2 size={40} />
-                    </div>
-                    <h3 className="text-2xl font-heading font-bold text-gray-900 mb-2">Message Sent!</h3>
-                    <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                      Thank you for contacting Dr. Annu's Dental Care. Our team will get back to you responding to your inquiry shortly.
-                    </p>
-                    <button 
-                      onClick={() => setSubmitted(false)}
-                      className="text-teal-600 font-medium hover:text-teal-700 underline px-6 py-2 bg-teal-50 rounded-full"
-                    >
-                      Send another message
-                    </button>
-                  </motion.div>
-                ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -175,7 +155,6 @@ export default function Contact() {
                       Send Message
                     </button>
                   </form>
-                )}
               </div>
             </div>
             

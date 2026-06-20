@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAppointments } from '../hooks/useAppointments';
 import { Calendar, Clock, Trash2, Plus, User, Phone, Clipboard, X, Search, CheckCircle } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext';
 
 export default function AdminDashboard() {
   const { appointments, addAppointment, updateAppointmentStatus, deleteAppointment, isLoaded } = useAppointments();
   const [isAdding, setIsAdding] = useState(false);
   const [filter, setFilter] = useState('All');
+  const { toast } = useToast();
 
   const filteredAppointments = appointments.filter(a => {
     if (filter === 'All') return true;
@@ -24,6 +26,7 @@ export default function AdminDashboard() {
       notes: formData.get('notes') as string,
     });
     setIsAdding(false);
+    toast('Patient appointment added successfully!');
   };
 
   const statusColors = {
@@ -117,7 +120,10 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select 
                           value={appt.status}
-                          onChange={(e) => updateAppointmentStatus(appt.id, e.target.value as any)}
+                          onChange={(e) => {
+                            updateAppointmentStatus(appt.id, e.target.value as any);
+                            toast(`Appointment status updated to ${e.target.value}`);
+                          }}
                           className={`text-xs font-bold px-3 py-1.5 rounded-full border cursor-pointer outline-none ${statusColors[appt.status]}`}
                         >
                           <option value="Pending">Pending</option>
@@ -128,7 +134,10 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button 
-                          onClick={() => deleteAppointment(appt.id)}
+                          onClick={() => {
+                            deleteAppointment(appt.id);
+                            toast('Appointment removed', 'info');
+                          }}
                           className="text-red-500 hover:text-red-700 bg-red-50 p-2 rounded hover:bg-red-100 transition-colors"
                           title="Delete Appointment"
                         >

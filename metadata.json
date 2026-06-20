@@ -1,6 +1,6 @@
 {
-  "name": "Dr. Annu's Dental Care",
-  "description": "A modern, professional, and family-friendly dental clinic website located in Indore.",
+  "name": "Dr. Annu’s Dental Care",
+  "description": "Expert dental care for families in Gwalior. Quality treatments, experienced dentists, modern facilities, and patient-focused care.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

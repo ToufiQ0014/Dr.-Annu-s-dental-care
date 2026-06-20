@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SectionHeading from '../ui/SectionHeading';
 import { Calendar, User, Phone, Clipboard, CheckCircle2 } from 'lucide-react';
 import * as motion from 'motion/react-client';
 import { useAppointments } from '../../hooks/useAppointments';
+import { useToast } from '../../contexts/ToastContext';
 
 export default function AppointmentForm() {
-  const [submitted, setSubmitted] = useState(false);
   const { addAppointment } = useAppointments();
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,8 +21,8 @@ export default function AppointmentForm() {
       notes: formData.get('notes') as string,
     });
 
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    toast('Appointment requested successfully!');
+    e.currentTarget.reset();
   };
 
   return (
@@ -61,27 +62,6 @@ export default function AppointmentForm() {
           </div>
 
           <div className="lg:w-7/12 p-10 md:p-16 bg-white">
-            {submitted ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="h-full flex flex-col items-center justify-center text-center py-12"
-              >
-                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-                  <CheckCircle2 size={40} />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-gray-900 mb-2">Request Received!</h3>
-                <p className="text-gray-600 mb-6 max-w-sm">
-                  Thank you for reaching out. Our clinic coordinator will contact you shortly to confirm your appointment details.
-                </p>
-                <button 
-                  onClick={() => setSubmitted(false)}
-                  className="text-teal-600 font-medium hover:text-teal-700 underline"
-                >
-                  Book another appointment
-                </button>
-              </motion.div>
-            ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -167,7 +147,6 @@ export default function AppointmentForm() {
                   Request Appointment
                 </button>
               </form>
-            )}
           </div>
 
         </div>

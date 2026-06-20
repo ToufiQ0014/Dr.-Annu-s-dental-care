@@ -8,21 +8,24 @@ import Reviews from './pages/Reviews';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import ScrollToTop from './components/utils/ScrollToTop';
+import { ToastProvider } from './contexts/ToastContext';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="services" element={<ServicesPage />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="admin" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ToastProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="services" element={<ServicesPage />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="admin" element={<AdminDashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
   );
 }
